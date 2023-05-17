@@ -1,0 +1,168 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Compensation</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+	<div class="container my-2">
+
+		<h1>Employee Compensation List</h1>
+		<a th:href="@{/api/showNewEmployeeForm}" class="btn btn-warning">Add
+			Employee</a>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+
+				<!-- 	<tr>
+					<th>Employee First Name</th>
+					<th>Employee Last Name</th>
+					<th>Employee Email</th>
+					<th>Actions</th>
+				</tr> -->
+				<!-- <tr>
+					<th><a th:href="@{'/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}}">
+       Id</a></th>-->
+
+				<tr>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=employeeId&sortDir=' + ${reverseSortDir}}">
+							EmployeeId</a></th>
+
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=userName&sortDir=' + ${reverseSortDir}}">
+							Employee Name</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=plan&sortDir=' + ${reverseSortDir}}">
+							Plan</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=employeeType&sortDir=' + ${reverseSortDir}}">
+							Employee Type</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=projectCategory&sortDir=' + ${reverseSortDir}}">
+							Project Category</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=clientName&sortDir=' + ${reverseSortDir}}">
+							Client Name</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=projectStatus&sortDir=' + ${reverseSortDir}}">
+							Project Status</a></th>
+
+
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=projectStartDate&sortDir=' + ${reverseSortDir}}">
+							Project start date</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=projectEndDate&sortDir=' + ${reverseSortDir}}">
+							Project end date</a></th>
+
+
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=tenure&sortDir=' + ${reverseSortDir}}">
+							Tenure</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=department&sortDir=' + ${reverseSortDir}}">
+							Department</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=billingStatus&sortDir=' + ${reverseSortDir}}">
+							Billing Status</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=ojasEmailID&sortDir=' + ${reverseSortDir}}">
+							Ojas Email Id</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=billRatesPM&sortDir=' + ${reverseSortDir}}">
+							Bill Rates PM</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=estimationOfActualBilling&sortDir=' + ${reverseSortDir}}">
+							Estimation Of Actual Billing</a></th>
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=mCtc&sortDir=' + ${reverseSortDir}}">
+							M CTC</a></th>
+
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=margin&sortDir=' + ${reverseSortDir}}">
+							Margin</a></th>
+
+					<th><a
+						th:href="@{'/page/' + ${currentPage} + '?sortField=yctc&sortDir=' + ${reverseSortDir}}">
+							Y CTC</a></th>
+
+
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee: ${listEmployees}">
+					<td th:text="${employee.employeeId}"></td>
+					<td th:text="${employee.userName}"></td>
+					<td th:text="${employee.plan}"></td>
+					<td th:text="${employee.employeeType}"></td>
+					<td th:text="${employee.projectCategory}"></td>
+					<td th:text="${employee.clientName}"></td>
+					<td th:text="${employee.projectStatus}"></td>
+					<td th:text="${employee.projectStartDate}"></td>
+					<td th:text="${employee.projectEndDate}"></td>
+					<td th:text="${employee.tenure}"></td>
+					<td th:text="${employee.department}"></td>
+					<td th:text="${employee.billingStatus}"></td>
+					<td th:text="${employee.ojasEmailID}"></td>
+					<td th:text="${employee.billRatesPM}"></td>
+					<td th:text="${employee.estimationOfActualBilling}"></td>
+					<td th:text="${employee.mCtc}"></td>
+					<td th:text="${employee.margin}"></td>
+					<td th:text="${employee.yctc}"></td>
+					<!-- @{/students/edit/{id}(id=${student.id})} -->
+
+					<td><a
+					
+						th:href="@{/api/showFormForUpdate/{id}(id=${employee.id})}"
+						class="btn btn-primary">Update</a> <a
+						th:href="@{/api/deleteEmployee/{id}(id=${employee.id})}"
+						class="btn btn-danger">Delete</a></td>
+			</tbody>
+		</table>
+		<div th:if="${totalPages > 1}">
+			<div class="row col-sm-10">
+				<div class="col-sm-2">Total Rows:[[${totalItems}]]</div>
+				<div class="col-sm-row">
+					<span th:each="i:${#numbers.sequence(1, totalPages)}"> <a
+						th:if="${currentPage != i}"
+						th:href="@{'/api/page/' + ${i}+'?sortField=' +${sortField} + '&sortDir='+${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp;
+						&nbsp;
+					</span>
+				</div>
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/api/page/' + ${currentPage + 1}+'?sortField=' +${sortField} + '&sortDir='+${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+
+				<div class="col-sm-1">
+					<a th:if="${currentPage < totalPages}"
+						th:href="@{'/api/page/' + ${totalPages}+'?sortField=' +${sortField} + '&sortDir='+${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div><a class="btn btn-primary" href='/datepicker.html'>=Plans=</a></div>
+
+</body>
+</html>

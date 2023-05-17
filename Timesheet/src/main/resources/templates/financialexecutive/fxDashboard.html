@@ -1,0 +1,141 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<title>FxDashboard</title>
+
+
+	<!-- Bootstrap CSS -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Favicons -->
+
+	<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+
+
+	<link rel="stylesheet" href="/assets/font/bootstrap-icons.css">
+	<!-- Basic stylesheet -->
+	<link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+
+	<!-- Default Theme -->
+	<link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+	<!-- You can use latest version of jQuery  -->
+	<script src="/assets/js/jquery-1.9.1.min.js"></script>
+
+	<!-- Include js plugin -->
+
+	<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/theme-1.css" rel="stylesheet" type="text/css" />
+
+	<!-- Include js plugin -->
+	<script src="/assets/owl-carousel/owl.carousel.js"></script>
+	<script type="text/javascript" src="/assets/js/javacustom/navbar.js"></script>
+	<script type="text/javascript" src="/assets/js/javacustom/adminDashboard.js"></script>
+</head>
+
+<body>
+	<div th:insert="/admin/navbar"></div>
+	<aside id="sidebar" class="sidebar">
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a class="nav-link" aria-current="page" href="#">
+					<i class="bi bi-grid"></i>
+					Dashboard
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/pmoapproved"> <i class="bi bi-journal-text"></i><span>PMO
+						Approved</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/financialpendingStatus"> <i
+						class="bi bi-journal-text"></i><span>Finance Approval
+						Pending</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/allrequestapproved"> <i
+						class="bi bi-journal-text"></i><span>Total Approved</span></a>
+			</li>
+
+		</ul>
+
+	</aside>
+	<main id="main" class="main">
+		<section class="section" style="min-height: 480px">
+			<div class="d-flex align-items-center justify-content-between">
+				<h4>Financial Executive Dashboard</h4>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/financialexecutive/fxDashboard"><i
+									class="bi bi-house-fill"></i> Home</a>
+						</li>
+						<li class="breadcrumb-item active">Financial Executive Dashboard</li>
+					</ol>
+				</nav>
+			</div>
+			<!--<div class="row py-3">
+				<div class="col-lg-4">
+					<div class="card card shadow-sm">
+						<div class="card-body">
+							<h3 class="card-title">PMO Approved </h3>
+							<p class="card-text"><span class="stat1 badge bg-warning" id="noas">99</span>
+							</p>
+							<hr>
+							<span class="">PMO Approved</span><a href="/financialexecutive/pmoapproved" class="link-sm"
+								style="float:right">View more</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card shadow-sm">
+						<div class="card-body">
+							<h3 class="card-title">Finance Approval Pending</h3>
+							<p class="card-text"><span class="stat1 badge bg-danger" id="nops">49</span>
+							</p>
+							<hr>
+							<span class=""> to be appoved</span><a href="/financialexecutive/financialpendingStatus"
+								class="link-sm" style="float:right">View more</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="card card shadow-sm">
+						<div class="card-body">
+							<h3 class="card-title">Total Approved(PMO+Finance)</h3>
+							<p class="card-text"><span class="stat1 badge bg-success">15</span>
+							</p>
+							<hr>
+							<span class=""> No. of Approved</span><a href="#" class="link-sm" style="float:right">View
+								more</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		--></section>
+	</main>
+	<footer id="footer" class="footer">
+		<div class="copyright">
+			© Copyright. All Rights Reserved
+		</div>
+	</footer>
+
+
+
+
+
+	<!-- Option 1: Bootstrap Bundle with Popper
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="/assets/js/main.js"></script>
+</body>
+
+</html>

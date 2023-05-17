@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Download Files</title>
+<!-- Bootstrap 5 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+	integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+	<center>
+		<input id="A" class="form-control" type="hidden"
+			th:value="${session.fileId}" />
+		<div id='result'></div>
+	</center>
+	<a class="btn btn-primary" href='/GetUserFiles.html'> Back </a>
+
+
+</body>
+<script>
+	$(document).ready(
+			function() {
+				console.log("ready!");
+				console.log($('#A').val());
+
+				$.ajax({
+					url : "/file/" + $('#A').val(),
+					type : "GET",
+					contentType : "application/json",
+					//data:jsonData,
+					dataType : 'json',
+					cache : false,
+					success : function(data) {
+						console.log("server response data is----"
+								+ JSON.stringify(data));
+
+						let resp = JSON.parse(JSON.stringify(data));
+						let id = resp.id;
+						let name = resp.name;
+						let type = resp.type;
+
+						console.log(id);
+						console.log(name);
+						if (type == "image/png") {
+							console.log("you have selecte Png Image");
+							var img = document.createElement('img');
+							img.src = '/fileDownloadImg/' + id;
+							document.getElementById('result').appendChild(img);
+						} else if (type == "image/jpeg") {
+							console.log("you have selecte Jpg Image");
+							var img = document.createElement('img');
+							img.src = '/fileDownloadJpg/' + id;
+							document.getElementById('result').appendChild(img);
+						} else if (type == "image/gif") {
+							console.log("you have selecte Gif Image");
+							var img = document.createElement('img');
+							img.src = '/fileDownloadGif/' + id;
+							document.getElementById('result').appendChild(img);
+						} else if (type == "audio/mpeg") {
+							console.log("you have selecte Audio");
+							var sound = document.createElement('audio');
+							sound.id = 'audio-player';
+							sound.controls = 'controls';
+							sound.src = '/fileDownloadAudio/' + id;
+							sound.type = 'audio/mpeg';
+							document.getElementById('result')
+									.appendChild(sound);
+						} else if (type == "video/mp4") {
+							console.log("you have selecte Video");
+							var x = document.createElement("VIDEO");
+
+							if (x.canPlayType("video/mp4")) {
+								x.setAttribute("src", '/fileDownloadVideo/'
+										+ id);
+							} else {
+								//x.setAttribute("src","movie.ogg");
+							}
+
+							x.setAttribute("width", "320");
+							x.setAttribute("height", "240");
+							x.setAttribute("controls", "controls");
+
+							document.getElementById('result').appendChild(x);
+
+						}
+
+						else if (type == "text/xml") {
+							console.log("you have select XML file");
+
+							$.ajax({
+								url : "/fileDownloadXML/" + $('#A').val(),
+								type : "GET",
+								contentType : "application/xml",
+								//data:jsonData,
+								//	dataType : 'json',
+								cache : false,
+								success : function(data) {
+									console.log("server response data is----"
+											+ data);
+									var xmlText = new XMLSerializer()
+											.serializeToString(data);
+									var xmlTextNode = document
+											.createTextNode(xmlText);
+									document.getElementById('result')
+											.appendChild(xmlTextNode);
+								}
+
+							});
+
+						}
+
+						else if (type == "application/pdf") {
+							console.log("you have selecte PDF file");
+							var iframe = document.createElement('iframe');
+							iframe.src = '/fileDownloadPDF/' + id;
+							iframe.width = "1024";
+							iframe.height = "768";
+							//iframe.setAttribute("width","80%");
+							//iframe.setAttribute("height","80%");
+
+							document.getElementById('result').appendChild(
+									iframe);
+						} else if (type == "text/plain") {
+
+							console.log("you have selecte Text file");
+							var iframe = document.createElement('iframe');
+							iframe.src = '/fileDownloadPlain/' + id;
+							document.getElementById('result').appendChild(
+									iframe);
+
+						} else if (type == "application/x-zip-compressed") {
+							console.log("you have selecte ZIP file");
+							var iframe = document.createElement('iframe');
+							iframe.src = '/fileDownloadPlain/' + id;
+							document.getElementById('result').appendChild(
+									iframe);
+						} else if (type == "application/json") {
+							console.log("you have selecte Json  file");
+							var iframe = document.createElement('iframe');
+							iframe.src = '/fileDownloadJson/' + id;
+							iframe.width = "1024";
+							iframe.height = "768";
+							document.getElementById('result').appendChild(
+									iframe);
+
+						} else {
+							console.log("un supported file formate");
+						}
+
+					},
+					error : function(e) {
+						console.log('Error');
+
+					}
+
+				});
+
+			});
+</script>
+</html>

@@ -1,0 +1,330 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<title>Timesheet</title>
+
+
+<!-- Bootstrap CSS -->
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Favicons -->
+
+<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+
+
+<link rel="stylesheet" href="/assets/font/bootstrap-icons.css">
+<!-- Basic stylesheet -->
+<link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+
+<!-- Default Theme -->
+<link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+	rel="stylesheet">
+
+
+<!-- You can use latest version of jQuery  -->
+<script src="/assets/js/jquery-1.9.1.min.js"></script>
+
+<!-- Include js plugin -->
+
+<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/theme-1.css" rel="stylesheet" type="text/css" />
+
+<!-- Include js plugin -->
+<script src="/assets/owl-carousel/owl.carousel.js"></script>
+<script src="/assets/js/javacustom/timesheet.js"></script>
+<style>
+
+.location_relative{
+	position:absolute;
+}
+@media screen and (max-width:767px){
+	.location_relative{
+		position:relative;
+	}
+}
+</style>
+</head>
+
+<body>
+	<header class="header fixed-top d-flex align-items-center header-scrolled">
+		<a href="/user/addtimesheet"
+			class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none justify-content-start">
+			<img src="/assets/img/logo.png" style="max-height: 44px;">
+		</a> <i class="bi bi-list toggle-sidebar-btn sidetoggle"></i>
+		<div
+			class="pagetitle d-flex align-items-center justify-content-between">
+			<h3 class="headingtop">Timesheet</h3>
+		</div>
+		<nav class="header-nav ms-auto">
+			<ul class="d-flex align-items-center user-link">
+				<li class="nav-item d-block d-lg-none"><a
+					class="nav-link nav-icon search-bar-toggle" href="#"> <!-- <i
+						class="bi bi-search"></i> -->
+				</a></li>
+
+				<li class="nav-item dropdown pe-3"><a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+					<input type='hidden' id='un' th:value=${#authentication.getName()} /> 
+						<img src="/assets/img/avatar.png" id="pp" width="39" height="39" alt="Profile" class="rounded-circle">
+						<span class="d-none d-md-block dropdown-toggle ps-2" id="username" >User Name</span>
+				</a>
+					<ul
+						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile"
+						style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-45px, 38px);"
+						data-popper-placement="bottom-end">
+
+						<li class="dropdown-header" sec:authorize="isAuthenticated()"
+							sec:authentication="name">
+							<h6>User Name</h6> <!--<span>Designation</span>-->
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="#"> <i class="bi bi-person"></i> <span>Profile</span>
+						</a></li>
+
+
+
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="/logout"> <i class="bi bi-box-arrow-right"></i> <span>Sign
+									Out</span>
+						</a></li>
+					</ul></li>
+			</ul>
+		</nav>
+	</header>
+	<div th:insert="/user/sidebar"></div>
+	<main id="main" class="main">
+
+		<section class="section" style="min-height: 480px">
+			<img id='progress' class="center" src='/img/progress.gif' width='48' height='48'/>
+			<div class="d-flex align-items-center justify-content-between">
+				<h4>Fill TimeSheet</h4>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/user/addtimesheet"><i
+								class="bi bi-house-fill"></i> Home</a></li>
+						<li class="breadcrumb-item active">Timesheet</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="row py-3">
+
+				<div class="col-lg-12">
+					<div class="card card shadow-sm">
+						<div class="card-body">
+							<div style="color: red; text-align: center;" id='errorBoard'>
+							</div>
+							<form class="row py-3 g-3" id="timesheetform"
+								enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault02" class="form-label">Employee
+											Id</label> <input type="text" class="form-control" id="empId"
+											name="empId" placeholder="eg : 31101" required>
+									</div>
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault01" class="form-label">Employee
+											Name</label> <input type="text" class="form-control" id="empName"
+											name="empName" placeholder="eg : Eric Blair" required>
+									</div>
+
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefaultUsername" class="form-label">Email</label>
+										<div class="input-group">
+											<input type="email" class="form-control" id="email"
+												name="email" aria-describedby="inputGroupPrepend2"
+												placeholder="eg : eric.blair@ojas-it.com" required
+												onkeyup="appendEmail(this,'emailautofill');"><span
+												class="input-group-text" id="email">@ojas-it.com</span>
+										</div>
+										<span id='emailautofill' style="display: none;"
+											class="form-control"></span>
+									</div>
+
+								</div>
+
+								<div class="row">
+
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefaultUsername" class="form-label">Client
+											Name</label> <select class="form-select"
+											aria-label="Default select example" id="clientName"
+											name="clientName" onchange="popClientNameTextBox()" required>
+											<option selected disabled th:value="0">Select Client</option>
+											<option th:each="client : ${clientDetails}"
+												th:value="${client.name}" th:utext="${client.name}" />
+											<option th:value="Other">Other</option>
+										</select>
+										<input type="text" id="client" name="client" class="form-control mt-2" style="display: none;" maxlength="20" />
+									</div>
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault08" class="form-label">Technology</label>
+										<select select class="form-select"
+											aria-label="Default select example" id="domain" name="domain"
+											required>
+											<option selected disabled th:value="0">Select Technology</option>
+											<option th:each="tech : ${techDetails}"
+												th:value="${tech.name}" th:utext="${tech.name}" />
+										</select>
+									</div>
+
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefaultUsername" class="form-label">Phone
+											Number</label>
+										<div class="input-group">
+											<span class="input-group-text"><select
+												class="custom-select" style="max-width: 120px;">
+													<option value="91">+91</option>
+													<option value="1">+1</option>
+													<option value="44">+44</option>
+											</select></span> <input type="text" class="form-control" id="phNo"
+												name="phoneNo" pattern="[1-9]{1}[0-9]{9}"
+												placeholder="eg : 9988776655" required>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault02" class="form-label">Shift</label>
+										<select class="form-select"
+											aria-label="Default select example" id="shift" name="shift"
+											required>
+											<option selected disabled value="">Select Shift</option>
+											<option value="Morning Shift">Morning</option>
+											<option value="General Shift">General</option>
+											<option value="Mid Shift">Mid</option>
+											<option value="Night Shift">Night</option>
+										</select>
+									</div>
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault01" class="form-label">Start
+											Timings</label> <input type="time" class="form-control"
+											id="startTime" name="startTime" required>
+									</div>
+
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefaultUsername" class="form-label">End
+											Timings</label> <input type="time" class="form-control" id="endTime"
+											name="endTime" required>
+									</div>
+
+								</div>
+
+								<div class="row">
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault01" class="form-label">Start
+											Date</label> <input type="date" class="form-control" id="startDate"
+											name="startDate" required>
+									</div>
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault01" class="form-label">End
+											Date</label> <input type="date" class="form-control" id="endDate"
+											name="endDate" required>
+									</div>
+
+									<div class="col-md-4 py-2 mb-4">
+										<label class="form-label" for="files">Upload Approved
+											TimeSheet</label> <input class="form-control"
+											id="upload-file-input" multiple name="uploadfile" type="file"
+											required />
+										<div class="small text-muted mt-2 location_relative">Max file size 10 MB</div>
+									</div>
+
+								</div>
+								
+								<div class="row">
+									<div class="col-md-4 py-2 mb-4">
+										<label for="validationDefault01" class="form-label">Workmode</label>
+										<select class="form-select" aria-label="Default select example" id="location" name="location" onchange="popLocationTextBox()" required>
+											<option selected disabled value="">Select Location</option>
+											<option value="work from home">Work From Home</option>
+											<option value="work from office(ojas)">Work From Office(OJAS)</option>
+											<option value="work_from_office">Work From Office(CLIENT)</option>
+										</select>
+									</div>
+									<!-- <div class="col-md-4 py-2 mb-4" id="abcd" style="display: none;">
+										<label for="validationDefault08" class="form-label">Work From Office</label>
+										<select class="form-select" aria-label="Default select example" id="Officelocation"  name="location" required>
+											<option selected disabled th:value="0">Select Office Location</option>
+											<option th:each="l : ${location}"
+												th:value="${l.name}" th:utext="${l.name}" />
+										</select>
+									</div> -->
+									<div class="col-md-4 py-2 mb-4" id="abcd" style="display: none;">
+										<label for="validationDefault08" class="form-label">Client Location</label>
+										<input type="text" class="form-control" id="Officelocation" list ="loc"  name="location">
+										<datalist id="loc">
+											<option selected disabled th:value="0">Select Office Location</option>
+											<option th:each="l : ${location}"
+												th:value="${l.name}" th:utext="${l.name}" />
+										</datalist>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-4 py-2 mb-4" style="display:none;">
+										<label for="validationDefault01" class="form-label">Lat</label>
+										<input type="text" class="form-control" id="lat">
+									</div>
+									<div class="col-md-4 py-2 mb-4" style="display:none;">
+										<label for="validationDefault08" class="form-label">Long</label>
+										<input type="text" class="form-control" id="long">
+									</div>
+									<div class="col-md-4 py-2 mb-4" style="display:none;">
+										<label for="validationDefault08" class="form-label">Ip</label>
+										<input type="text" class="form-control" id="ip">
+									</div>
+	
+
+								</div>
+								
+								<div class="row">
+									
+									<div class="col-md-4 py-2 mb-4" style="display:none;">
+										<label for="validationDefault08" class="form-label">Location Details</label>
+										<textarea class="form-control" id="locDetails"></textarea>
+									</div>
+	
+
+								</div>
+								<div class="row" id="submitbtnCurrencydiv">
+									<div class="col-12">
+										<button class="btn btn-primary" type="submit">Submit</button>
+									</div>
+								</div>
+							</form>
+							<p id='msg' style='font-size: 24;'></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer id="footer" class="footer">
+		<div class="copyright">© Copyright. All Rights Reserved</div>
+	</footer>
+
+
+
+
+
+	<!-- Option 1: Bootstrap Bundle with Popper
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="/assets/js/main.js"></script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</body>
+
+</html>

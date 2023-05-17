@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Meta Tags for Bootstrap 5 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap 5 CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+	integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1><p align="center" id='result' text="${session.result}" ></p></h1>
+	<form method="get" action="/findUserCloud" enctype="multipart/form-data">
+
+		<div class="form-group">
+			<input class="text-primary" type="text" name="userName" id="username"
+				placeholder="userName"></input>
+
+		</div>
+		<button type="submit" class="btn btn-primary" >FindUserFiles</button>
+								<br>
+	</form>
+	<form>
+		<div id='result'></div>
+
+		<button type="submit" class="btn btn-success" onclick="getUserFiles()">GetUserFiles</button>
+		
+	</form>
+	
+</body>
+<script>
+function getUserFiles() {
+	 for (var form of document.getElementsByTagName('form')) {
+
+        form.addEventListener('submit', function (ev) {
+
+            ev.preventDefault()
+
+        })
+
+    }
+	 
+	console.log('here----------22');
+   $.ajax({
+       url: "/findUserFiles/"+document.getElementById("username").value,
+       type: "GET",
+       contentType: "application/json",
+       //data:jsonData,
+       dataType:'json',
+       cache: false,
+       success: function (data) {
+       	   console.log("server response data is----"
+                      + JSON.stringify(data));
+              //rez = JSON.stringify(data);                                
+              var str = "";
+
+
+             var htmlTableHeaders = [];
+              var htmlTableData = "";
+
+
+
+             let rcount = 0;
+              let cCount = 0;
+              for ( var key in data) {
+                  if (data.hasOwnProperty(key)) {
+                	  
+                      str += key + " -> " + JSON.stringify(data[key])
+                              + "<br/>";
+                      subData = data[key];
+
+
+
+                     recordsSize = Object.keys(subData).length;
+                      console.log(recordsSize);
+
+
+
+                     htmlTableData += "<tr>";
+                      var id = '';
+                      for ( var subKey in subData) {
+                          if (subData.hasOwnProperty(subKey)) {
+                              str += rcount + "--->" + subKey + "="
+                                      + subData[subKey] + "<br/>";
+
+
+
+                             if (rcount == 0) {
+                                  htmlTableHeaders.push(subKey
+                                          .toUpperCase());                                       
+                                  if(cCount==0){
+                               	   id = subData[subKey];
+                               	   htmlTableData += '<td><a href="/fileResult/'+id+'">'+ id + '</a></td>';
+                                  }else{
+                               	   htmlTableData += '<td><a href="/fileResult/'+id+'">'+ subData[subKey] + '</a></td>';   
+                                  }                                       
+                                  
+                              } else {                                	   
+                                  if(cCount==0){
+                               	   id = subData[subKey];
+                               	   htmlTableData += '<td><a href="/fileResult/'+id+'">'+ id + '</a></td>';
+                                  }else{
+                               	   htmlTableData += '<td><a href="/fileResult/'+id+'">'+ subData[subKey] + '</a></td>';   
+                                  }
+                              }
+                          }
+                          cCount++;
+                      }
+                      cCount = 0;
+                      htmlTableData += "</tr>";
+                  }
+                  rcount++;
+              }
+
+
+
+             var htmlStr = "<table class='table table-bordered'>";
+              htmlStr += "<tr>";
+              var arrayLength = htmlTableHeaders.length;
+              for (var i = 0; i < arrayLength; i++) {
+                  htmlStr += "<th>" + htmlTableHeaders[i] + "</th>";
+              }
+              htmlStr += "</tr>";
+              htmlStr += htmlTableData;
+              htmlStr += "</table>";
+
+
+
+             document.getElementById("result").innerHTML = htmlStr;
+
+
+
+         }, error: function (e) {
+           console.log('Error');
+
+       }
+         
+   });        
+}
+</script>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Update Details</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Update Details</h1>
+		<hr>
+		<h2>Update Employee</h2>
+		<form action=""  th:action="@{/api/saveEmployee}" th:object="${employee}"
+			method="POST">
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}"></input>
+	
+			
+			<input type="text" th:field="*{employeeId}"
+			 class="form-control mb-4 col-4">
+			
+				<input type="text" th:field="*{userName}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{plan}"
+		 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{employeeType}"
+		 class="form-control mb-4 col-4">
+			
+			<input type="text" th:field="*{projectCategory}"
+		 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{clientName}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{projectStatus}"
+			 class="form-control mb-4 col-4">
+			
+			<input type="text" th:field="*{projectStartDate}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{projectEndDate}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{tenure}"
+			 class="form-control mb-4 col-4">
+			
+			
+			<input type="text" th:field="*{department}"
+		 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{billingStatus}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{ojasEmailID}"
+			 class="form-control mb-4 col-4">
+			
+			<input type="number" th:field="*{billRatesPM}"
+			 class="form-control mb-4 col-4">
+			<input type="number" th:field="*{estimationOfActualBilling}"
+			 class="form-control mb-4 col-4">
+			<input type="number" th:field="*{mCtc}"
+			 class="form-control mb-4 col-4">
+			
+			<input type="number" th:field="*{margin}"
+			 class="form-control mb-4 col-4">
+			<input type="text" th:field="*{yctc}"
+		
+			 class="form-control mb-4 col-4">
+			
+			<button type="submit" class="btn btn-info col-2">Update Employee</button>
+			</form>
+			<!-- <hr>
+			<a th:href="@{}/"> Back to Employee List</a> -->
+	</div>
+
+</body>
+</html>

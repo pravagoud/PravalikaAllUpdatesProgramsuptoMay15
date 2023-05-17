@@ -1,0 +1,214 @@
+<html lang="en">
+	<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+	<title>Dashboard</title>
+	
+
+    <!-- Bootstrap CSS -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicons -->
+	
+	<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+	
+	
+  <link rel="stylesheet" href="/assets/font/bootstrap-icons.css">
+	<!-- Basic stylesheet -->
+<link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+ 
+<!-- Default Theme -->
+<link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+ 
+ 
+<!-- You can use latest version of jQuery  -->
+<script src="/assets/js/jquery-1.9.1.min.js"></script>
+ 
+<!-- Include js plugin -->
+	
+<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+<link href="/assets/css/theme-1.css" rel="stylesheet" type="text/css" />
+
+<!-- Include js plugin -->
+<script type="text/javascript" src="/assets/js/javacustom/userDashboard.js"></script>
+<script src="/assets/owl-carousel/owl.carousel.js"></script>
+<script type="text/javascript" src="/assets/js/javacustom/timesheetOpt.js"></script>
+
+  </head>
+  <body>
+		<header class="header fixed-top d-flex align-items-center header-scrolled">
+      <a href="#" class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none justify-content-start">
+        <img src="/assets/img/logo.png" style="max-height: 44px;">
+      </a>
+		
+		<i class="bi bi-list toggle-sidebar-btn sidetoggle"></i>
+		<div class="pagetitle d-flex align-items-center justify-content-between">
+                <h3 class="headingtop">Timesheet</h3>
+            </div>
+      <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center user-link">
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link nav-icon search-bar-toggle" href="#"> <!-- <i class="bi bi-search"></i> --> </a>
+                    </li>
+                    
+                    <li class="nav-item dropdown pe-3">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                            <input type='hidden' id='un' th:value=${#authentication.getName()} /> 
+                            <img src="/assets/img/avatar.png" id="pp" width="39" height="39" alt="Profile" class="rounded-circle"><span class="d-none d-md-block dropdown-toggle ps-2" id="username">User Name</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-45px, 38px);" data-popper-placement="bottom-end">
+                            <li class="dropdown-header" sec:authorize="isAuthenticated()"
+							sec:authentication="name">
+                                <h6>User Name</h6>
+                                <!--<span>Designation</span>-->
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="#"> <i class="bi bi-person"></i> <span>Profile</span> </a>
+                            </li>
+                           
+                           
+                           
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="/logout"> <i class="bi bi-box-arrow-right"></i> <span>Sign Out</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+    </header>
+         <div th:insert="/user/sidebar"></div>
+		<main id="main" class="main">
+            
+            <section class="section" style="min-height: 480px">
+                <div class="d-flex align-items-center justify-content-between">
+                <h4>Dashboard</h4>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-fill"></i> Home</a></li>
+                        <li class="breadcrumb-item active"> Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+			<div class="row py-3">
+                    <div class="col-lg-4">
+						<div class="card card shadow-sm">
+						  <div class="card-body">
+							<h3 class="card-title">Current PMO-Pending Status </h3>
+							<p class="card-text"><span class="stat1 badge bg-warning" id="ups"></span>
+							</p>
+							<hr>
+							<span class="">Pending</span><a href="/user/UploadHistory" class="link-sm" style="float:right">View more</a>
+						  </div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<div class="card card shadow-sm">
+						  <div class="card-body">
+							<h3 class="card-title">No. of PMO Approved Status</h3>
+							<p class="card-text"><span class="stat1 badge bg-success" id="uas"></span>
+							</p>
+							<hr>
+							<span class=""> Already Appoved</span><a href="/user/UploadHistory" class="link-sm" style="float:right">View more</a>
+						  </div>
+						</div>
+					</div>
+					<!--div class="col-lg-4">
+						<div class="card card shadow-sm">
+						  <div class="card-body">
+							<h3 class="card-title">Timesheet Help Request</h3>
+							<p class="card-text"><span class="stat1 badge bg-danger">1</span>
+							</p>
+							<hr>
+							<span class=""> No. of Request</span><a href="#" class="link-sm" style="float:right">View more</a>
+						  </div>
+						</div>
+					</div-->
+				</div>
+				<!--<div class="row py-3">
+					<div class="col-lg-12">
+						<div class="card card shadow-sm">
+						<div class="more">
+							<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+								<li><a class="dropdown-item" href="#">Recent</a></li>
+								<li><a class="dropdown-item" href="#">This Month</a></li>
+								<li><a class="dropdown-item" href="#">This Year</a></li>
+							</ul>
+						</div>
+						  <div class="card-body">
+							<h3 class="card-title">Client Details</h3>
+							<div class="table-responsive">
+					<table class="table link-sm">
+					  <thead class="table-primary">
+						<tr>
+						  <th scope="col">Id</th>
+						  <th scope="col">Email</th>
+						  <th scope="col">Current Client</th>
+						</tr>
+					  </thead>
+					  <tbody>
+						<tr>
+						  <td><a href="#">22283</a></td>
+						  <td><a href="#">Sushantkumar.mohanty@ojas-it.com</a></td>
+						  <td>Deloitte</td>
+						</tr>
+						<tr>
+						  <td><a href="#">22283</a></td>
+						  <td><a href="#">Sushantkumar.mohanty@ojas-it.com</a></td>
+						  <td>Deloitte</td>
+						</tr>
+						<tr>
+						  <td><a href="#">22283</a></td>
+						  <td><a href="#">Sushantkumar.mohanty@ojas-it.com</a></td>
+						  <td>Deloitte</td>
+						</tr>
+						<tr>
+						  <td><a href="#">22283</a></td>
+						  <td><a href="#">Sushantkumar.mohanty@ojas-it.com</a></td>
+						  <td>Deloitte</td>
+						</tr>
+						<tr>
+						  <td><a href="#">22283</a></td>
+						  <td><a href="#">Sushantkumar.mohanty@ojas-it.com</a></td>
+						  <td>Deloitte</td>
+						</tr>
+						
+						
+					  </tbody>
+					</table>
+					</div>
+
+							
+							
+						  </div>
+						  <div class="card-footer">
+							<a href="#" class="link-sm" style="float:right">View all</a>
+						  </div>
+						</div>
+					</div>
+				</div>-->
+            </section>
+        </main>
+		<footer id="footer" class="footer">
+            <div class="copyright">
+                © Copyright. All Rights Reserved
+            </div>
+        </footer>
+  
+  
+  
+
+	
+	 <!-- Option 1: Bootstrap Bundle with Popper
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+    <script src="/assets/js/bootstrap.bundle.min.js" ></script>
+ 
+	<script src="/assets/js/main.js"></script>
+  </body>
+
+</html>

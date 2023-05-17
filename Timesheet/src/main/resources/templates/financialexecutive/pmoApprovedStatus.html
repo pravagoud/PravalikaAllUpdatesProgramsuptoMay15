@@ -1,0 +1,212 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<title>PMO Approved</title>
+
+
+	<!-- Bootstrap CSS -->
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Favicons -->
+
+	<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+
+
+	<link rel="stylesheet" href="/assets/font/bootstrap-icons.css">
+	<!-- Basic stylesheet -->
+	<link rel="stylesheet" href="/assets/owl-carousel/owl.carousel.css">
+
+	<!-- Default Theme -->
+	<link rel="stylesheet" href="/assets/owl-carousel/owl.theme.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+	<!-- You can use latest version of jQuery  -->
+	<script src="/assets/js/jquery-1.9.1.min.js"></script>
+
+	<!-- Include js plugin -->
+
+	<link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/theme-1.css" rel="stylesheet" type="text/css" />
+
+	<!-- Include js plugin -->
+	<script src="/assets/owl-carousel/owl.carousel.js"></script>
+
+	<script type="text/javascript" src="/assets/js/javacustom/moment-with-locales.js"></script>
+	<script type="text/javascript" src="/assets/js/javacustom/financialExecutive.js"></script>
+	<script type="text/javascript" src="/assets/js/javacustom/timesheetOpt.js"></script>
+	<script type="text/javascript" src="/assets/js/javacustom/navbar.js"></script>
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" language="javascript"
+		src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+</head>
+
+<body>
+
+	<div th:insert="/admin/navbar"></div>
+	<!-- <div th:insert="/admin/sidebar"></div> -->
+	<aside id="sidebar" class="sidebar">
+		<ul class="nav flex-column">
+			<li class="nav-item">
+				<a class="nav-link" aria-current="page" href="#">
+					<i class="bi bi-grid"></i>
+					Dashboard
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/pmoapproved"> <i class="bi bi-journal-text"></i><span>PMO
+						Approved</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/financialpendingStatus"> <i
+						class="bi bi-journal-text"></i><span>Finance Approval Pending</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/financialexecutive/allrequestapproved"> <i
+						class="bi bi-journal-text"></i><span>Total Approved</span></a>
+			</li>
+
+		</ul>
+
+	</aside>
+	<main id="main" class="main">
+
+		<section class="section" style="min-height: 480px">
+			<div class="d-flex align-items-center justify-content-between">
+				<h4>PMO Approved</h4>
+				<p id="result" style="font-size: 24px; color: green;"></p>
+				<nav>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="/financialexecutive/fxDashboard"><i
+									class="bi bi-house-fill"></i> Home</a></li>
+						<li class="breadcrumb-item active">PMO Approved</li>
+					</ol>
+				</nav>
+			</div>
+
+			<form id='pmoapproved'>
+				<div class="row py-3">
+
+					<div class="col-lg-4">
+						<label>Start Date</label> <input type="date" class="form-control" id="startdate"
+							placeholder='Select Date' />
+					</div>
+					<div class="col-lg-4">
+
+						<label> End Date</label> <input type="date" class="form-control" id="enddate"
+							placeholder='Select Date' />
+
+					</div>
+					<div class="col-lg-4">
+
+						<input type="submit" style="margin-top: 23px;" class="btn btn-success" id="submitdate"
+							value="Fetch Approved Data">
+
+					</div>
+
+				</div>
+			</form>
+			<div class="row py-3">
+				<div class="col-lg-12">
+					<div class="card card shadow-sm">
+						<div class="more">
+							<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+							<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+								<li><a class="dropdown-item" href="#">Recent</a></li>
+								<li><a class="dropdown-item" href="#">This Month</a></li>
+								<li><a class="dropdown-item" href="#">This Year</a></li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<h3 class="card-title">Pending Detail</h3>
+							<div class="table-responsive">
+								<table class="table link-sm" id="approveddatefilter" data-export-title="Pending_Report">
+									<thead class="table-primary">
+										<tr>
+											<th scope="col">Emp Id</th>
+											<th scope="col">Emp Name</th>
+											<th scope="col">Client Name</th>
+											<th scope="col">Submited Date</th>
+											<th scope="col">Approved/Rejected Date</th>
+											<th scope="col">StartDate</th>
+											<th scope="col">EndDate</th>
+											<th scope="col">Shift</th>
+											<th scope="col">Timing</th>
+											<th scope="col">PhoneNo</th>
+											<th scope="col">Email</th>
+											<th scope="col">File</th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+						<div class="card-footer">
+							<a href="#" class="link-sm" style="float: right">View all</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="email-modal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<!-- 	<a class="close" data-dismiss="modal">×</a> -->
+							<!-- 	<h3>Contact Form</h3> -->
+						</div>
+						<form id="emailForm" name="contact" role="form">
+							<div class="modal-body">
+								<div class="form-group">
+									<input type='hidden' id='stid' /> <input type='hidden' id='actionOption' /> <label
+										for="message">Comment</label>
+									<textarea id="message" name="message" class="form-control"></textarea>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<input type="button" class="btn btn-default" id="closebox" value='Close' /> <input
+									type="submit" class="btn btn-success" id="modalsubmit" value='Send Email'>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer id="footer" class="footer">
+		<div class="copyright">© Copyright. All Rights Reserved</div>
+	</footer>
+
+
+
+
+
+	<!-- Option 1: Bootstrap Bundle with Popper
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script> -->
+	<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+	<script src="/assets/js/main.js"></script>
+</body>
+
+</html>

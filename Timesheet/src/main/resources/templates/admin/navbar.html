@@ -1,0 +1,42 @@
+		<header class="header fixed-top d-flex align-items-center header-scrolled">
+      <a href="/admin/dashboard" class="d-flex align-items-center col-md-2 mb-2 mb-md-0 text-dark text-decoration-none justify-content-start">
+        <img src="/assets/img/logo.png" style="max-height: 44px;">
+      </a>
+		
+		<i class="bi bi-list toggle-sidebar-btn sidetoggle"></i>
+		<div class="pagetitle d-flex align-items-center justify-content-between">
+                <h3 class="headingtop">Timesheet</h3>
+            </div>
+      <nav class="header-nav ms-auto">
+                <ul class="d-flex align-items-center user-link">
+                    <li class="nav-item d-block d-lg-none">
+                        <a class="nav-link nav-icon search-bar-toggle" href="#"> <!-- <i class="bi bi-search"></i> --> </a>
+                    </li>
+                    
+                    <li class="nav-item dropdown pe-3">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="true">
+                            <input type='hidden' id='un' th:value=${#authentication.getName()} /> 
+                            <img src="/assets/img/avatar.png" id="pp" width="39" height="39" alt="Profile" class="rounded-circle"><span class="d-none d-md-block dropdown-toggle ps-2" id="username">User Name</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(-45px, 38px);" data-popper-placement="bottom-end">
+                            <li class="dropdown-header" sec:authorize="isAuthenticated()"
+							sec:authentication="name">
+                                <h6>User Name</h6>
+                                <span>Designation</span>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="#"> <i class="bi bi-person"></i> <span>Profile</span> </a>
+                            </li>
+                           
+                           
+                           
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="/logout"> <i class="bi bi-box-arrow-right"></i> <span>Sign Out</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+    </header>

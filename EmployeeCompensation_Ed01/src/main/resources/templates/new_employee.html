@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+<p><p id='result' th:text="${session.result}"></p></p>
+<form  method="post" action="/api/save" >
+
+<label for="empid">Employee Id:</label>
+<input type="text" id="empid" name="employeeId"><br><br>
+
+<label for="userName">user name:</label>
+<input type="text" id="userName" name="userName"><br><br>
+
+
+
+<label for="plan">plan:</label>
+<input type="text" id="plan" name="plan"><br><br>
+
+
+<label for="employeeType">Employee Type:</label>
+<input type="text" id="employeeType" name="employeeType"><br><br>
+
+
+<label for="projectCategory">Project Category:</label>
+<input type="text" id="projectCategory" name="projectCategory"><br><br>
+
+
+<label for="clientName">Client Name:</label>
+<input type="text" id="clientName" name="clientName"><br><br>
+
+
+<label for="projectStatus">Project Status:</label>
+<input type="text" id="projectStatus" name="projectStatus"><br><br>
+
+
+<label for="projectStartDate">Project Start Date:</label>
+<input type="text" id="projectStartDate" name="projectStartDate"><br><br>
+
+
+<label for="projectEndDate">Project End Date:</label>
+<input type="text" id="projectEndDate" name="projectEndDate"><br><br>
+
+
+<label for="tenure">Tenure:</label>
+<input type="number" id="tenure" name="tenure"><br><br>
+
+<label for="department">Department:</label>
+<input type="text" id="department" name="department"><br><br>
+
+<label for="billingStatus">Billing Status:</label>
+<input type="text" id="billingStatus" name="billingStatus"><br><br>
+
+<label for="ojasEmailID">Ojas Email ID:</label>
+<input type="email" id="ojasEmailID" name="ojasEmailID"><br><br>
+
+<label for="billRatesPM">Bill Rates PM:</label>
+<input type="number" id="billRatesPM" name="billRatesPM"><br><br>
+
+<label for="estimationOfActualBilling">Estimation of Actual Billing:</label>
+<input type="number" id="estimationOfActualBilling" name="estimationOfActualBilling"><br><br>
+
+<label for="mCtc">M CTC:</label>
+<input type="number" id="mCtc" name="mCtc"><br><br>
+
+<label for="margin">Margin:</label>
+<input type="text" id="margin" name="margin"><br><br>
+
+<label for="yctc">Y CTC:</label>
+<input type="number" id="yctc" name="yctc"><br><br>
+<button type="submit" class="btn btn-primary">submit</button>
+</form>
+</body>
+</html>
