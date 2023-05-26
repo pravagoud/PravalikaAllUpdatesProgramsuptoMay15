@@ -90,6 +90,6 @@ public class Task_19_BigdataGenerationAndSplit {
 	}
 	public static void openFileSpliter() throws IOException {
 		Runtime.getRuntime()
-				.exec("D:\\springbootworkspace1\\Microservice\\SynthData-R_Project\\Free-File-Splitter-v5.0.1189.exe");
+				.exec("resources\\Free-File-Splitter-v5.0.1189.exe");
 	}
 }

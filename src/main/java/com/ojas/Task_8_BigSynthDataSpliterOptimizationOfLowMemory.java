@@ -14,10 +14,8 @@ import java.util.List;
 
 public class Task_8_BigSynthDataSpliterOptimizationOfLowMemory {
 	public static void main(String[] args) {
-	}
 
-	{
-		File newfile = new File("op.txt");
+		File newfile = new File("bigdata.txt");
 		int s = 100;
 		try {
 			// splitFile(newfile, s);

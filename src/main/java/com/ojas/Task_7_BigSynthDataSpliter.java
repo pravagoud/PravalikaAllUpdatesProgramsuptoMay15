@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Task_7_BigSynthDataSpliter {
 	public static void main(String[] args) {
-		File newfile = new File("op6.txt");
+		File newfile = new File("bigdata.txt");
 		int s = 100;
 		try {
 			splitFile(newfile, s);

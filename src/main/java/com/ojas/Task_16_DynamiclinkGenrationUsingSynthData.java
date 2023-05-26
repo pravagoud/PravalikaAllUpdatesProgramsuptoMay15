@@ -18,7 +18,7 @@ public class Task_16_DynamiclinkGenrationUsingSynthData {
 	    private static FileReader alphabetFileReader;
 	    private static FileReader numericFileReader;
 	    private static FileWriter outputFileWriter;
-	   // public static String string="http:ip.port\"+\"\"+\"Cap\"+\"\"+\"check.jsp\"+\"?\"  + \"un=\" + alpha + \"&\" + \"pw=\" + num";
+	   
 
 	    public static void main(String[] args) throws IOException {
 	        JFileChooser fileChooser = new JFileChooser(".");
@@ -37,10 +37,6 @@ public class Task_16_DynamiclinkGenrationUsingSynthData {
 	            return;
 	        }
 	        File numericFile = fileChooser.getSelectedFile();
-
-//	        Scanner sc = new Scanner(System.in);
-//	        System.out.print("Enter number of rounds: ");
-//	        maxLength = sc.nextInt();
 
 	        outputFolder = new File("output");
 	        outputFolder.mkdir();

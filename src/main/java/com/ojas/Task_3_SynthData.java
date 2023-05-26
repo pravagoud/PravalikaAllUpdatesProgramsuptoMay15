@@ -20,6 +20,7 @@ public class Task_3_SynthData {
 		}
 		else{
 		System.out.println("please enter 2 ");
+		
 	}
 	}
 }

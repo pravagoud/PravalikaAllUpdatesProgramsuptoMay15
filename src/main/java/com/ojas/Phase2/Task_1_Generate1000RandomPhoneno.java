@@ -3,7 +3,7 @@ package com.ojas.Phase2;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
+//Generating only 100 random Indian phone numbers
 public class Task_1_Generate1000RandomPhoneno {
 	
 	
